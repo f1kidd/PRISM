@@ -1,6 +1,6 @@
 # path = "C:/Users/f1kidd/OneDrive/prism/2014"
 
-def extreme_call(filedir,date_list=None,theat=38):
+def extreme_call(filedir,date_list=None,theat=38,outdir='extreme'):
     # here filedir is ../prism/year
     import numpy as np
     from numpy import ma
@@ -8,7 +8,7 @@ def extreme_call(filedir,date_list=None,theat=38):
     from datetime import timedelta, date
 
     filedir = filedir + "/"
-    updir = filedir[:-5]+'extreme/'
+    updir = filedir[:-5]+outdir+"/"
     if not os.path.exists(updir):
         os.mkdir(updir)
     path_max= filedir + "tmax/"
@@ -28,6 +28,9 @@ def extreme_call(filedir,date_list=None,theat=38):
             date_list = date_list_max
             del date_list_max, date_list_min
         else:
+            missing = list(set(date_list_max) - set(date_list_min)) + list(set(date_list_min) - set(date_list_max))
+            print "There are missing dates:"
+            print '[%s]' % ', '.join(map(str, missing))
             print "Date list not checked out. Abort program."
             return False
     else:

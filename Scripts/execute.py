@@ -13,10 +13,10 @@ from gdd import gdd_call
 from precip import prec_call
 from extreme import extreme_call
 
-# path = "C:/Users/f1kidd/OneDrive/prism"
+path = "C:/Users/f1kidd/OneDrive/prism"
 # path = "/Users/xindeji/OneDrive/prism"
 
-# start_month,end_month,start_year,end_year = 4,9,2007,2014
+start_month,end_month,start_year,end_year = 4,9,2014,2014
 
 def gdd_exec(path,start_year,end_year,start_month=4,end_month=9,tmin=8,tmax=32,date_range_gdd=None):
 
@@ -30,7 +30,7 @@ def gdd_exec(path,start_year,end_year,start_month=4,end_month=9,tmin=8,tmax=32,d
         prism(path, date_range, 'tmin')
         gdd_call(year_path,date_range_gdd,tmin,tmax)
 
-#gdd_exec(path,2004,2006)
+# gdd_exec(path,start_year,end_year)
 
 
 def prec_exec(path,start_year,end_year,start_month=6,end_month=9,date_range_prec=None):
@@ -44,10 +44,10 @@ def prec_exec(path,start_year,end_year,start_month=6,end_month=9,date_range_prec
         prism(path, date_range, 'ppt')
         prec_call(year_path,date_range_prec)
 
-#prec_exec(path,2004,2014)
+# prec_exec(path,start_year,end_year)
 
 
-def extreme_exec(path,start_year,end_year,start_month=4,end_month=9,theat=35,date_range_gdd=None):
+def extreme_exec(path,start_year,end_year,start_month=4,end_month=9,theat=30,date_range_exm=None,outdir=None):
 
     for year in range(start_year,end_year+1):
         start_date = date(year, start_month, 1)
@@ -57,5 +57,8 @@ def extreme_exec(path,start_year,end_year,start_month=4,end_month=9,theat=35,dat
         year_path = path + '/' + str(year)
         prism(path, date_range, 'tmax')
         prism(path, date_range, 'tmin')
-        extreme_call(year_path,date_range_gdd,theat)
-# extreme_exec(path,2014,2014)
+        if(outdir is None):
+            extreme_call(year_path,date_range_exm,theat)
+        else:
+            extreme_call(year_path, date_range_exm, theat,outdir=outdir)
+extreme_exec(path,start_year,end_year,outdir="extreme30")

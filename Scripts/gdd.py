@@ -1,6 +1,6 @@
 # path = "C:/Users/f1kidd/OneDrive/prism/2014"
 
-def gdd_call(filedir,date_list=None,tmin=8,tmax=32):
+def gdd_call(filedir,date_list=None,tmin=8,tmax=32,outname='gdd'):
     # here filedir is ../prism/year
     import numpy as np
     from numpy import ma
@@ -72,7 +72,7 @@ def gdd_call(filedir,date_list=None,tmin=8,tmax=32):
     # gdd_perm.mask = ma.nomask
     gdd_perm = np.where(max_mask.mask,-9999.0,gdd_perm)
 
-    outfile = 'gdd' + str(date)[0:4]
+    outfile = outname + str(date)[0:4]
     fout = open(updir + outfile + ".bil","wb")
     gdd_perm.tofile(fout)
     fout.close()

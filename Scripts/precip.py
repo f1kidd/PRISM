@@ -1,6 +1,7 @@
 # path = "C:/Users/f1kidd/OneDrive/prism/2014"
 
-def prec_call(filedir,date_list=None):
+# function prec_call(): accumulate
+def prec_call(filedir,date_list=None,outname='prec'):
     # here filedir is ../prism/year
     import numpy as np
     from numpy import ma
@@ -45,7 +46,7 @@ def prec_call(filedir,date_list=None):
 
     prec_perm = np.where(prec_mask.mask,-9999.0,prec_perm)
 
-    outfile = 'prec' + str(date)[0:4]
+    outfile = outname + str(date)[0:4]
     fout = open(updir + outfile + ".bil","wb")
     prec_perm.tofile(fout)
     fout.close()
